@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>오늘의 점심 운세 🔮</title>
+    <title>오늘의 점심 운세</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Playfair+Display:wght@700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap');
         
         * {
             margin: 0;
@@ -15,123 +15,97 @@
 
         body {
             font-family: 'Noto Sans KR', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+            background: #ffffff;
+            padding: 20px 15px;
             overflow-x: hidden;
         }
 
-        /* 별똥별 배경 애니메이션 */
-        .stars {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .star {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: white;
-            border-radius: 50%;
-            animation: twinkle 3s infinite;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0; }
-            50% { opacity: 1; }
-        }
-
-        /* 메인 컨테이너 */
         .container {
-            max-width: 1200px;
+            max-width: 900px;
             width: 100%;
-            position: relative;
-            z-index: 10;
+            margin: 0 auto;
         }
 
         /* 헤더 */
         .header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             animation: fadeInDown 0.8s ease;
         }
 
         .header h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
-            color: #fff;
-            text-shadow: 0 0 20px rgba(255,255,255,0.5);
-            margin-bottom: 10px;
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+            font-weight: 900;
         }
 
         .header .subtitle {
-            font-size: 1.2rem;
-            color: rgba(255,255,255,0.9);
-            letter-spacing: 2px;
+            font-size: 0.95rem;
+            color: #666;
+            letter-spacing: 0.5px;
         }
 
         /* 실시간 통계 배너 */
         .stats-banner {
-            background: rgba(255,255,255,0.15);
-            backdrop-filter: blur(10px);
-            border-radius: 50px;
-            padding: 15px 30px;
-            margin: 30px auto;
+            background: linear-gradient(135deg, #667eea15, #764ba215);
+            border-radius: 30px;
+            padding: 12px 20px;
+            margin: 20px auto;
             width: fit-content;
             display: flex;
-            gap: 30px;
+            gap: 20px;
             align-items: center;
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid #667eea30;
             animation: pulse 2s infinite;
         }
 
         .stat-item {
             display: flex;
             align-items: center;
-            gap: 8px;
-            color: white;
+            gap: 6px;
+            color: #333;
             font-weight: 700;
+            font-size: 0.85rem;
         }
 
         .stat-number {
-            font-size: 1.5rem;
-            color: #FFD700;
+            font-size: 1.1rem;
+            color: #667eea;
         }
 
         /* 메뉴 카드 그리드 */
         .menu-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
         }
 
         .menu-card {
-            background: rgba(255,255,255,0.95);
-            border-radius: 20px;
-            padding: 30px 20px;
+            background: #ffffff;
+            border-radius: 15px;
+            padding: 20px 15px;
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
-            border: 3px solid transparent;
+            border: 2px solid #f0f0f0;
             animation: fadeInUp 0.6s ease backwards;
         }
 
         .menu-card:nth-child(1) { animation-delay: 0.1s; }
-        .menu-card:nth-child(2) { animation-delay: 0.2s; }
-        .menu-card:nth-child(3) { animation-delay: 0.3s; }
-        .menu-card:nth-child(4) { animation-delay: 0.4s; }
-        .menu-card:nth-child(5) { animation-delay: 0.5s; }
-        .menu-card:nth-child(6) { animation-delay: 0.6s; }
+        .menu-card:nth-child(2) { animation-delay: 0.15s; }
+        .menu-card:nth-child(3) { animation-delay: 0.2s; }
+        .menu-card:nth-child(4) { animation-delay: 0.25s; }
+        .menu-card:nth-child(5) { animation-delay: 0.3s; }
+        .menu-card:nth-child(6) { animation-delay: 0.35s; }
+        .menu-card:nth-child(7) { animation-delay: 0.4s; }
+        .menu-card:nth-child(8) { animation-delay: 0.45s; }
+        .menu-card:nth-child(9) { animation-delay: 0.5s; }
 
         .menu-card::before {
             content: '';
@@ -140,7 +114,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,215,0,0.3), transparent);
+            background: linear-gradient(45deg, transparent, rgba(102,126,234,0.1), transparent);
             transform: rotate(45deg);
             transition: 0.6s;
         }
@@ -150,39 +124,39 @@
         }
 
         .menu-card:hover {
-            transform: translateY(-10px) scale(1.05);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            border-color: #FFD700;
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 15px 35px rgba(102,126,234,0.15);
+            border-color: #667eea;
         }
 
         .menu-card.selected {
             border-color: #667eea;
             background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
-            transform: scale(1.1);
+            transform: scale(1.05);
         }
 
         .menu-icon {
-            font-size: 4rem;
-            margin-bottom: 15px;
+            font-size: 2.8rem;
+            margin-bottom: 10px;
             display: block;
-            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.2));
+            filter: drop-shadow(0 3px 6px rgba(0,0,0,0.1));
         }
 
         .menu-name {
-            font-size: 1.3rem;
+            font-size: 1.05rem;
             font-weight: 700;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
         }
 
         .menu-description {
-            font-size: 0.9rem;
-            color: #666;
-            line-height: 1.4;
+            font-size: 0.75rem;
+            color: #999;
+            line-height: 1.3;
         }
 
         .menu-card.selected .menu-description {
-            color: rgba(255,255,255,0.9);
+            color: rgba(255,255,255,0.85);
         }
 
         /* 로딩 화면 */
@@ -193,7 +167,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.95);
+            background: rgba(255,255,255,0.98);
             z-index: 1000;
             justify-content: center;
             align-items: center;
@@ -206,13 +180,13 @@
         }
 
         .crystal-ball {
-            width: 200px;
-            height: 200px;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
             background: radial-gradient(circle at 30% 30%, #fff, #667eea, #764ba2);
             box-shadow: 
-                0 0 50px rgba(102, 126, 234, 0.8),
-                inset 0 0 50px rgba(255,255,255,0.3);
+                0 0 40px rgba(102, 126, 234, 0.6),
+                inset 0 0 40px rgba(255,255,255,0.3);
             animation: float 3s ease-in-out infinite, glow 2s ease-in-out infinite;
             position: relative;
         }
@@ -226,43 +200,44 @@
             height: 40%;
             background: radial-gradient(circle, rgba(255,255,255,0.8), transparent);
             border-radius: 50%;
-            filter: blur(10px);
+            filter: blur(8px);
         }
 
         @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+            50% { transform: translateY(-15px); }
         }
 
         @keyframes glow {
-            0%, 100% { box-shadow: 0 0 50px rgba(102, 126, 234, 0.8); }
-            50% { box-shadow: 0 0 80px rgba(102, 126, 234, 1); }
+            0%, 100% { box-shadow: 0 0 40px rgba(102, 126, 234, 0.6); }
+            50% { box-shadow: 0 0 60px rgba(102, 126, 234, 0.9); }
         }
 
         .loading-text {
-            color: white;
-            font-size: 1.5rem;
-            margin-top: 30px;
+            color: #333;
+            font-size: 1.1rem;
+            margin-top: 25px;
             font-weight: 700;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             animation: pulse 1.5s infinite;
         }
 
         .loading-dots {
-            color: #FFD700;
-            font-size: 2rem;
-            letter-spacing: 5px;
+            color: #667eea;
+            font-size: 1.5rem;
+            letter-spacing: 3px;
         }
 
         /* 결과 화면 */
         .result-screen {
             display: none;
             background: white;
-            border-radius: 30px;
-            padding: 50px;
-            max-width: 600px;
+            border-radius: 20px;
+            padding: 30px 25px;
+            max-width: 550px;
             margin: 0 auto;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 40px rgba(102,126,234,0.1);
+            border: 2px solid #f0f0f0;
             animation: scaleIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
@@ -272,49 +247,49 @@
 
         .result-header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
 
         .result-menu {
-            font-size: 5rem;
-            margin-bottom: 20px;
+            font-size: 3.5rem;
+            margin-bottom: 15px;
             animation: bounce 1s ease;
         }
 
         .result-title {
-            font-size: 2rem;
+            font-size: 1.5rem;
             color: #333;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             font-weight: 900;
         }
 
         .result-subtitle {
             color: #666;
-            font-size: 1.1rem;
+            font-size: 0.95rem;
         }
 
         /* 운세 게이지 */
         .fortune-gauge {
-            margin: 40px 0;
+            margin: 30px 0;
         }
 
         .gauge-label {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             font-weight: 700;
-            font-size: 1.3rem;
+            font-size: 1.1rem;
         }
 
         .gauge-percentage {
             color: #667eea;
-            font-size: 2rem;
+            font-size: 1.6rem;
         }
 
         .gauge-bar-container {
-            height: 40px;
-            background: #f0f0f0;
-            border-radius: 20px;
+            height: 35px;
+            background: #f5f5f5;
+            border-radius: 18px;
             overflow: hidden;
             position: relative;
         }
@@ -322,7 +297,7 @@
         .gauge-bar {
             height: 100%;
             background: linear-gradient(90deg, #667eea, #764ba2, #FFD700);
-            border-radius: 20px;
+            border-radius: 18px;
             transition: width 2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
@@ -335,7 +310,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
             animation: shine 2s infinite;
         }
 
@@ -345,16 +320,16 @@
 
         /* 운세 상세 정보 */
         .fortune-details {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            border-radius: 20px;
-            padding: 30px;
-            margin: 30px 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
         }
 
         .detail-item {
-            margin-bottom: 25px;
-            padding-bottom: 25px;
-            border-bottom: 2px dashed rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 2px dashed rgba(0,0,0,0.08);
         }
 
         .detail-item:last-child {
@@ -366,64 +341,41 @@
         .detail-label {
             font-weight: 700;
             color: #667eea;
-            margin-bottom: 10px;
-            font-size: 1.1rem;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         .detail-content {
             color: #333;
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             line-height: 1.6;
         }
 
-        /* 공유 버튼들 */
-        .share-buttons {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-top: 40px;
-        }
-
-        .share-btn {
-            padding: 18px;
+        /* 다시하기 버튼 */
+        .retry-btn {
+            width: 100%;
+            padding: 16px;
             border: none;
-            border-radius: 15px;
-            font-size: 1.1rem;
+            border-radius: 12px;
+            font-size: 1.05rem;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            margin-top: 25px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 8px;
         }
 
-        .share-btn.kakao {
-            background: #FEE500;
-            color: #000;
-        }
-
-        .share-btn.instagram {
-            background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
-            color: white;
-        }
-
-        .share-btn.download {
-            background: #667eea;
-            color: white;
-        }
-
-        .share-btn.retry {
-            background: #764ba2;
-            color: white;
-        }
-
-        .share-btn:hover {
+        .retry-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 25px rgba(102,126,234,0.3);
         }
 
         /* 애니메이션 */
@@ -435,7 +387,7 @@
         @keyframes fadeInDown {
             from {
                 opacity: 0;
-                transform: translateY(-50px);
+                transform: translateY(-30px);
             }
             to {
                 opacity: 1;
@@ -446,7 +398,7 @@
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(50px);
+                transform: translateY(30px);
             }
             to {
                 opacity: 1;
@@ -457,7 +409,7 @@
         @keyframes scaleIn {
             from {
                 opacity: 0;
-                transform: scale(0.5);
+                transform: scale(0.7);
             }
             to {
                 opacity: 1;
@@ -467,8 +419,8 @@
 
         @keyframes bounce {
             0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-30px); }
-            60% { transform: translateY(-15px); }
+            40% { transform: translateY(-20px); }
+            60% { transform: translateY(-10px); }
         }
 
         @keyframes pulse {
@@ -479,42 +431,47 @@
         /* 반응형 */
         @media (max-width: 768px) {
             .header h1 {
-                font-size: 2.5rem;
+                font-size: 1.5rem;
             }
 
             .menu-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 15px;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
             }
 
             .menu-card {
-                padding: 20px 15px;
+                padding: 15px 10px;
             }
 
             .menu-icon {
-                font-size: 3rem;
+                font-size: 2.2rem;
+            }
+
+            .menu-name {
+                font-size: 0.9rem;
+            }
+
+            .menu-description {
+                font-size: 0.7rem;
             }
 
             .stats-banner {
                 flex-direction: column;
-                gap: 10px;
-                padding: 15px 20px;
+                gap: 8px;
+                padding: 12px 18px;
             }
 
             .result-screen {
-                padding: 30px 20px;
+                padding: 25px 20px;
             }
 
-            .share-buttons {
-                grid-template-columns: 1fr;
+            .result-menu {
+                font-size: 3rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- 별똥별 배경 -->
-    <div class="stars" id="stars"></div>
-
     <div class="container">
         <!-- 헤더 -->
         <div class="header">
@@ -525,11 +482,11 @@
         <!-- 실시간 통계 -->
         <div class="stats-banner">
             <div class="stat-item">
-                🔥 실시간 참여자
+                🔥 실시간
                 <span class="stat-number" id="liveUsers">12,847</span>명
             </div>
             <div class="stat-item">
-                ⏰ 오늘 남은 시간
+                ⏰ 남은시간
                 <span class="stat-number" id="countdown">05:23:41</span>
             </div>
         </div>
@@ -540,37 +497,55 @@
                 <div class="menu-card" data-menu="pizza">
                     <span class="menu-icon">🍕</span>
                     <div class="menu-name">피자</div>
-                    <div class="menu-description">대담한 선택, 큰 행운의 전조</div>
+                    <div class="menu-description">대담한 선택</div>
                 </div>
                 
                 <div class="menu-card" data-menu="chicken">
                     <span class="menu-icon">🍗</span>
                     <div class="menu-name">치킨</div>
-                    <div class="menu-description">황금빛 기회가 찾아옵니다</div>
+                    <div class="menu-description">황금 기회</div>
                 </div>
                 
                 <div class="menu-card" data-menu="jjigae">
                     <span class="menu-icon">🍲</span>
                     <div class="menu-name">김치찌개</div>
-                    <div class="menu-description">따뜻한 인연의 시작</div>
+                    <div class="menu-description">따뜻한 인연</div>
                 </div>
                 
                 <div class="menu-card" data-menu="ramen">
                     <span class="menu-icon">🍜</span>
                     <div class="menu-name">라면</div>
-                    <div class="menu-description">단순함 속의 지혜</div>
+                    <div class="menu-description">단순한 지혜</div>
                 </div>
                 
                 <div class="menu-card" data-menu="salad">
                     <span class="menu-icon">🥗</span>
                     <div class="menu-name">샐러드</div>
-                    <div class="menu-description">건강이 곧 재산입니다</div>
+                    <div class="menu-description">건강=재산</div>
                 </div>
                 
                 <div class="menu-card" data-menu="burger">
                     <span class="menu-icon">🍔</span>
                     <div class="menu-name">햄버거</div>
-                    <div class="menu-description">빠른 결단, 빠른 성공</div>
+                    <div class="menu-description">빠른 성공</div>
+                </div>
+
+                <div class="menu-card" data-menu="sushi">
+                    <span class="menu-icon">🍣</span>
+                    <div class="menu-name">초밥</div>
+                    <div class="menu-description">고급 취향</div>
+                </div>
+
+                <div class="menu-card" data-menu="pasta">
+                    <span class="menu-icon">🍝</span>
+                    <div class="menu-name">파스타</div>
+                    <div class="menu-description">낭만적 기운</div>
+                </div>
+
+                <div class="menu-card" data-menu="gimbap">
+                    <span class="menu-icon">🍱</span>
+                    <div class="menu-name">김밥</div>
+                    <div class="menu-description">알찬 하루</div>
                 </div>
             </div>
         </div>
@@ -604,58 +579,27 @@
             <div class="fortune-details">
                 <div class="detail-item">
                     <div class="detail-label">🌟 오늘의 한마디</div>
-                    <div class="detail-content" id="todayMessage">
-                        큰 결정을 내리기 좋은 날입니다. 오후 3시 이후 중요한 기회가 찾아올 수 있습니다.
-                    </div>
+                    <div class="detail-content" id="todayMessage"></div>
                 </div>
                 
                 <div class="detail-item">
                     <div class="detail-label">💎 행운의 아이템</div>
-                    <div class="detail-content" id="luckyItem">
-                        금색 액세서리, 커피
-                    </div>
+                    <div class="detail-content" id="luckyItem"></div>
                 </div>
                 
                 <div class="detail-item">
                     <div class="detail-label">🎯 추천 행동</div>
-                    <div class="detail-content" id="recommendAction">
-                        상사나 선배에게 먼저 인사하세요. 예상치 못한 칭찬을 들을 수 있습니다.
-                    </div>
+                    <div class="detail-content" id="recommendAction"></div>
                 </div>
             </div>
 
-            <div class="share-buttons">
-                <button class="share-btn kakao" onclick="shareKakao()">
-                    <span>💬</span> 카톡 공유
-                </button>
-                <button class="share-btn instagram" onclick="shareInstagram()">
-                    <span>📷</span> 인스타 공유
-                </button>
-                <button class="share-btn download" onclick="downloadResult()">
-                    <span>💾</span> 결과 저장
-                </button>
-                <button class="share-btn retry" onclick="retry()">
-                    <span>🔄</span> 다시 하기
-                </button>
-            </div>
+            <button class="retry-btn" onclick="retry()">
+                <span>🔄</span> 다시 하기
+            </button>
         </div>
     </div>
 
     <script>
-        // 별똥별 생성
-        function createStars() {
-            const starsContainer = document.getElementById('stars');
-            for (let i = 0; i < 100; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.animationDelay = Math.random() * 3 + 's';
-                starsContainer.appendChild(star);
-            }
-        }
-        createStars();
-
         // 실시간 사용자 수 랜덤 증가
         function updateLiveUsers() {
             const usersElement = document.getElementById('liveUsers');
@@ -688,73 +632,259 @@
         }
         updateCountdown();
 
-        // 메뉴 데이터
+        // 메뉴별 다양한 결과 데이터 (랜덤)
         const menuData = {
             pizza: {
                 icon: '🍕',
                 title: '피자의 선택자',
-                subtitle: '대담함이 곧 행운입니다',
-                fortune: 92,
-                message: '큰 결정을 내리기 좋은 날입니다. 오후 3시 이후 중요한 기회가 찾아올 수 있습니다.',
-                luckyItem: '금색 액세서리, 커피',
-                action: '상사나 선배에게 먼저 인사하세요. 예상치 못한 칭찬을 들을 수 있습니다.'
+                results: [
+                    {
+                        subtitle: '대담함이 곧 행운입니다',
+                        fortune: 92,
+                        message: '큰 결정을 내리기 좋은 날입니다. 오후 3시 이후 중요한 기회가 찾아올 수 있습니다.',
+                        luckyItem: '금색 액세서리, 커피',
+                        action: '상사나 선배에게 먼저 인사하세요. 예상치 못한 칭찬을 들을 수 있습니다.'
+                    },
+                    {
+                        subtitle: '모험이 성공을 부릅니다',
+                        fortune: 88,
+                        message: '평소 망설였던 일에 도전해보세요. 지금이 바로 그 타이밍입니다.',
+                        luckyItem: '빨간색 소품, 핫초코',
+                        action: '점심 후 새로운 프로젝트 아이디어를 상사에게 제안해보세요.'
+                    },
+                    {
+                        subtitle: '풍요로운 하루가 기다립니다',
+                        fortune: 95,
+                        message: '오늘은 모든 일이 당신 편입니다. 자신감을 가지세요!',
+                        luckyItem: '골드 펜, 에스프레소',
+                        action: '오후 미팅에서 적극적으로 발언하면 좋은 결과가 있을 것입니다.'
+                    }
+                ]
             },
             chicken: {
                 icon: '🍗',
                 title: '치킨의 선택자',
-                subtitle: '황금빛 기회를 잡으세요',
-                fortune: 88,
-                message: '오늘 하루는 모든 일이 순조롭게 풀립니다. 특히 금전적인 부분에서 좋은 소식이 있을 수 있습니다.',
-                luckyItem: '노란색 소품, 에너지 드링크',
-                action: '오후에 복권을 구매해보세요. 작은 행운이 찾아올 수 있습니다.'
+                results: [
+                    {
+                        subtitle: '황금빛 기회를 잡으세요',
+                        fortune: 88,
+                        message: '오늘 하루는 모든 일이 순조롭게 풀립니다. 특히 금전적인 부분에서 좋은 소식이 있을 수 있습니다.',
+                        luckyItem: '노란색 소품, 에너지 드링크',
+                        action: '오후에 복권을 구매해보세요. 작은 행운이 찾아올 수 있습니다.'
+                    },
+                    {
+                        subtitle: '승리의 기운이 가득합니다',
+                        fortune: 91,
+                        message: '경쟁에서 승리할 운세입니다. 자신감 있게 밀고 나가세요.',
+                        luckyItem: '황금색 볼펜, 비타민',
+                        action: '중요한 협상이나 미팅은 오후 2-4시 사이에 진행하세요.'
+                    },
+                    {
+                        subtitle: '행운이 날개를 달았습니다',
+                        fortune: 86,
+                        message: '예상치 못한 곳에서 기쁜 소식이 들려올 것입니다.',
+                        luckyItem: '깃털 장식품, 탄산수',
+                        action: '오래된 친구나 지인에게 연락해보세요. 좋은 기회로 이어질 수 있습니다.'
+                    }
+                ]
             },
             jjigae: {
                 icon: '🍲',
                 title: '김치찌개의 선택자',
-                subtitle: '따뜻한 인연의 시작',
-                fortune: 76,
-                message: '주변 사람들과의 관계가 더욱 돈독해집니다. 오래된 친구에게 연락해보세요.',
-                luckyItem: '빨간색 아이템, 따뜻한 차',
-                action: '점심 후 동료들과 커피 한잔 하면서 소소한 대화를 나누세요.'
+                results: [
+                    {
+                        subtitle: '따뜻한 인연의 시작',
+                        fortune: 76,
+                        message: '주변 사람들과의 관계가 더욱 돈독해집니다. 오래된 친구에게 연락해보세요.',
+                        luckyItem: '빨간색 아이템, 따뜻한 차',
+                        action: '점심 후 동료들과 커피 한잔 하면서 소소한 대화를 나누세요.'
+                    },
+                    {
+                        subtitle: '정겨운 하루가 펼쳐집니다',
+                        fortune: 82,
+                        message: '가족이나 가까운 사람과의 대화에서 중요한 영감을 얻게 됩니다.',
+                        luckyItem: '손뜨개 소품, 생강차',
+                        action: '저녁에는 가족에게 전화해보세요. 반가운 소식을 들을 수 있습니다.'
+                    },
+                    {
+                        subtitle: '포근한 기운이 감싸줍니다',
+                        fortune: 79,
+                        message: '스트레스가 해소되고 마음의 평화를 찾는 하루입니다.',
+                        luckyItem: '담요, 허브티',
+                        action: '무리하지 말고 편안한 마음으로 하루를 보내세요.'
+                    }
+                ]
             },
             ramen: {
                 icon: '🍜',
                 title: '라면의 선택자',
-                subtitle: '단순함 속의 지혜',
-                fortune: 65,
-                message: '복잡한 생각을 내려놓고 단순하게 접근하면 해결책이 보입니다.',
-                luckyItem: '흰색 옷, 생수',
-                action: '오늘은 무리하지 말고 일찍 퇴근하세요. 충분한 휴식이 내일의 행운을 부릅니다.'
+                results: [
+                    {
+                        subtitle: '단순함 속의 지혜',
+                        fortune: 65,
+                        message: '복잡한 생각을 내려놓고 단순하게 접근하면 해결책이 보입니다.',
+                        luckyItem: '흰색 옷, 생수',
+                        action: '오늘은 무리하지 말고 일찍 퇴근하세요. 충분한 휴식이 내일의 행운을 부릅니다.'
+                    },
+                    {
+                        subtitle: '소박함이 빛나는 날',
+                        fortune: 71,
+                        message: '거창한 계획보다 작은 실천이 더 큰 결과를 가져옵니다.',
+                        luckyItem: '메모장, 미네랄워터',
+                        action: '오늘 해야 할 일 3가지만 정하고 확실히 마무리하세요.'
+                    },
+                    {
+                        subtitle: '간결함의 미학',
+                        fortune: 68,
+                        message: '불필요한 것을 덜어내면 진짜 중요한 게 보입니다.',
+                        luckyItem: '심플한 디자인 제품, 레몬수',
+                        action: '책상이나 디지털 파일을 정리하면 좋은 아이디어가 떠오를 것입니다.'
+                    }
+                ]
             },
             salad: {
                 icon: '🥗',
                 title: '샐러드의 선택자',
-                subtitle: '건강이 곧 재산입니다',
-                fortune: 81,
-                message: '건강한 선택이 금전적 이익으로 돌아옵니다. 장기적인 투자를 고려해보세요.',
-                luckyItem: '초록색 소품, 비타민',
-                action: '퇴근 후 가벼운 운동을 하세요. 예상치 못한 좋은 만남이 있을 수 있습니다.'
+                results: [
+                    {
+                        subtitle: '건강이 곧 재산입니다',
+                        fortune: 81,
+                        message: '건강한 선택이 금전적 이익으로 돌아옵니다. 장기적인 투자를 고려해보세요.',
+                        luckyItem: '초록색 소품, 비타민',
+                        action: '퇴근 후 가벼운 운동을 하세요. 예상치 못한 좋은 만남이 있을 수 있습니다.'
+                    },
+                    {
+                        subtitle: '신선한 기운이 넘칩니다',
+                        fortune: 85,
+                        message: '새로운 시작에 최적의 날입니다. 미뤄뒀던 계획을 실행하세요.',
+                        luckyItem: '식물, 프레시 주스',
+                        action: '오전 중에 중요한 결정을 내리면 좋은 결과가 따릅니다.'
+                    },
+                    {
+                        subtitle: '균형잡힌 하루',
+                        fortune: 78,
+                        message: '일과 휴식의 균형을 잘 맞추면 최상의 컨디션을 유지할 수 있습니다.',
+                        luckyItem: '요가 매트, 스무디',
+                        action: '점심 후 10분 정도 스트레칭이나 산책을 하세요.'
+                    }
+                ]
             },
             burger: {
                 icon: '🍔',
                 title: '햄버거의 선택자',
-                subtitle: '빠른 결단, 빠른 성공',
-                fortune: 79,
-                message: '스피드가 생명입니다. 오늘 미뤘던 일을 바로 처리하면 큰 성과를 얻을 수 있습니다.',
-                luckyItem: '시계, 스마트폰',
-                action: '오전 중에 중요한 이메일이나 메시지를 확인하세요. 놓치면 안 될 기회가 있습니다.'
+                results: [
+                    {
+                        subtitle: '빠른 결단, 빠른 성공',
+                        fortune: 79,
+                        message: '스피드가 생명입니다. 오늘 미뤘던 일을 바로 처리하면 큰 성과를 얻을 수 있습니다.',
+                        luckyItem: '시계, 스마트폰',
+                        action: '오전 중에 중요한 이메일이나 메시지를 확인하세요. 놓치면 안 될 기회가 있습니다.'
+                    },
+                    {
+                        subtitle: '효율성이 빛나는 하루',
+                        fortune: 83,
+                        message: '멀티태스킹 능력이 발휘되는 날입니다. 여러 일을 동시에 처리해도 좋습니다.',
+                        luckyItem: '플래너, 이어폰',
+                        action: '짧은 미팅 여러 개를 연속으로 잡아도 좋은 성과를 낼 수 있습니다.'
+                    },
+                    {
+                        subtitle: '순발력이 행운을 부릅니다',
+                        fortune: 87,
+                        message: '즉각적인 판단이 필요한 상황에서 탁월한 선택을 하게 될 것입니다.',
+                        luckyItem: '디지털 기기, 에너지바',
+                        action: '갑작스러운 제안이 들어와도 두려워하지 말고 받아들이세요.'
+                    }
+                ]
+            },
+            sushi: {
+                icon: '🍣',
+                title: '초밥의 선택자',
+                results: [
+                    {
+                        subtitle: '고급스러운 선택',
+                        fortune: 90,
+                        message: '품격 있는 행동이 높은 평가를 받게 됩니다. 자신의 가치를 믿으세요.',
+                        luckyItem: '진주 액세서리, 녹차',
+                        action: '중요한 사람과의 미팅이나 식사 약속을 잡으세요.'
+                    },
+                    {
+                        subtitle: '세련된 안목',
+                        fortune: 87,
+                        message: '당신의 취향과 판단력이 빛을 발하는 날입니다.',
+                        luckyItem: '실버 소품, 생수',
+                        action: '예술 관련 활동이나 문화 생활을 즐기면 영감을 얻을 수 있습니다.'
+                    },
+                    {
+                        subtitle: '정제된 에너지',
+                        fortune: 93,
+                        message: '절제된 표현 속에 강한 카리스마가 느껴지는 하루입니다.',
+                        luckyItem: '미니멀 디자인 제품, 차',
+                        action: '간결하고 핵심적인 프레젠테이션으로 상대를 사로잡으세요.'
+                    }
+                ]
+            },
+            pasta: {
+                icon: '🍝',
+                title: '파스타의 선택자',
+                results: [
+                    {
+                        subtitle: '낭만적 기운',
+                        fortune: 84,
+                        message: '창의력이 샘솟는 하루입니다. 예술적 감각을 발휘해보세요.',
+                        luckyItem: '향수, 와인',
+                        action: '업무 중 창의적인 아이디어가 떠오르면 바로 메모하세요.'
+                    },
+                    {
+                        subtitle: '감성이 빛나는 날',
+                        fortune: 81,
+                        message: '사람들과의 감성적 교류가 행운을 가져옵니다.',
+                        luckyItem: '꽃, 음악',
+                        action: '동료들과 점심 후 가벼운 산책이나 문화생활을 즐겨보세요.'
+                    },
+                    {
+                        subtitle: '우아한 하루',
+                        fortune: 86,
+                        message: '여유로운 마음가짐이 더 좋은 결과를 만듭니다.',
+                        luckyItem: '스카프, 허브티',
+                        action: '서두르지 말고 천천히, 하지만 확실하게 일을 처리하세요.'
+                    }
+                ]
+            },
+            gimbap: {
+                icon: '🍱',
+                title: '김밥의 선택자',
+                results: [
+                    {
+                        subtitle: '알찬 하루',
+                        fortune: 75,
+                        message: '작지만 확실한 성과들이 모여 큰 결실을 이룹니다.',
+                        luckyItem: '수첩, 보온병',
+                        action: '작은 목표들을 하나씩 체크해가며 성취감을 느껴보세요.'
+                    },
+                    {
+                        subtitle: '꽉 찬 행운',
+                        fortune: 77,
+                        message: '다양한 경험과 만남이 당신을 성장시킵니다.',
+                        luckyItem: '다이어리, 과일',
+                        action: '평소와 다른 루트로 출퇴근하거나 새로운 장소를 방문해보세요.'
+                    },
+                    {
+                        subtitle: '실속있는 선택',
+                        fortune: 80,
+                        message: '효율적인 시간 관리로 여러 일을 동시에 해낼 수 있습니다.',
+                        luckyItem: '타이머, 견과류',
+                        action: '우선순위를 정하고 중요한 일부터 처리하세요.'
+                    }
+                ]
             }
         };
 
         // 메뉴 선택 이벤트
         document.querySelectorAll('.menu-card').forEach(card => {
             card.addEventListener('click', function() {
-                // 이전 선택 제거
                 document.querySelectorAll('.menu-card').forEach(c => c.classList.remove('selected'));
-                // 현재 선택 표시
                 this.classList.add('selected');
                 
-                // 1초 후 로딩 화면 표시
                 setTimeout(() => {
                     const menuType = this.dataset.menu;
                     showLoading(menuType);
@@ -766,79 +896,41 @@
         function showLoading(menuType) {
             document.getElementById('loadingScreen').classList.add('active');
             
-            // 3초 후 결과 표시
             setTimeout(() => {
                 showResult(menuType);
             }, 3000);
         }
 
-        // 결과 표시
+        // 결과 표시 (랜덤 선택)
         function showResult(menuType) {
-            const data = menuData[menuType];
+            const menuInfo = menuData[menuType];
+            const randomResult = menuInfo.results[Math.floor(Math.random() * menuInfo.results.length)];
             
-            // 화면 전환
             document.getElementById('menuSelection').style.display = 'none';
             document.getElementById('loadingScreen').classList.remove('active');
             document.getElementById('resultScreen').classList.add('active');
             
-            // 데이터 입력
-            document.getElementById('resultIcon').textContent = data.icon;
-            document.getElementById('resultTitle').textContent = data.title;
-            document.getElementById('resultSubtitle').textContent = data.subtitle;
-            document.getElementById('fortunePercent').textContent = data.fortune + '%';
-            document.getElementById('todayMessage').textContent = data.message;
-            document.getElementById('luckyItem').textContent = data.luckyItem;
-            document.getElementById('recommendAction').textContent = data.action;
+            document.getElementById('resultIcon').textContent = menuInfo.icon;
+            document.getElementById('resultTitle').textContent = menuInfo.title;
+            document.getElementById('resultSubtitle').textContent = randomResult.subtitle;
+            document.getElementById('fortunePercent').textContent = randomResult.fortune + '%';
+            document.getElementById('todayMessage').textContent = randomResult.message;
+            document.getElementById('luckyItem').textContent = randomResult.luckyItem;
+            document.getElementById('recommendAction').textContent = randomResult.action;
             
-            // 게이지 애니메이션
             setTimeout(() => {
-                document.getElementById('gaugeBar').style.width = data.fortune + '%';
+                document.getElementById('gaugeBar').style.width = randomResult.fortune + '%';
             }, 300);
-
-            // 로컬스토리지에 결과 저장 (오늘 날짜로)
-            const today = new Date().toDateString();
-            localStorage.setItem('lastResult', JSON.stringify({
-                date: today,
-                menu: menuType,
-                data: data
-            }));
         }
 
-        // 공유 기능들
-        function shareKakao() {
-            alert('카카오톡 공유 기능은 카카오 API 연동이 필요합니다.');
-            // 실제 구현시 Kakao SDK 사용
-        }
-
-        function shareInstagram() {
-            alert('인스타그램은 모바일 앱에서만 직접 공유가 가능합니다.\n결과를 저장한 후 인스타그램 앱에서 업로드해주세요!');
-        }
-
-        function downloadResult() {
-            alert('이미지 다운로드 기능은 HTML2Canvas 라이브러리가 필요합니다.');
-            // 실제 구현시 html2canvas 사용
-        }
-
+        // 다시하기
         function retry() {
             document.getElementById('resultScreen').classList.remove('active');
             document.getElementById('menuSelection').style.display = 'block';
             document.querySelectorAll('.menu-card').forEach(c => c.classList.remove('selected'));
             document.getElementById('gaugeBar').style.width = '0%';
+            window.scrollTo(0, 0);
         }
-
-        // 페이지 로드시 오늘 이미 했는지 체크
-        window.addEventListener('load', () => {
-            const lastResult = localStorage.getItem('lastResult');
-            if (lastResult) {
-                const saved = JSON.parse(lastResult);
-                const today = new Date().toDateString();
-                
-                // 오늘 이미 했다면 바로 결과 표시 (선택사항)
-                // if (saved.date === today) {
-                //     showResult(saved.menu);
-                // }
-            }
-        });
     </script>
 </body>
 </html>
