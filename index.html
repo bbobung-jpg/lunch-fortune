@@ -13,10 +13,17 @@
             box-sizing: border-box;
         }
 
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             font-family: 'Noto Sans KR', sans-serif;
             background: #ffffff;
-            padding: 20px 15px;
+            padding: 15px;
             overflow-x: hidden;
         }
 
@@ -24,12 +31,15 @@
             max-width: 900px;
             width: 100%;
             margin: 0 auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         /* 헤더 */
         .header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             animation: fadeInDown 0.8s ease;
         }
 
@@ -39,7 +49,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
             font-weight: 900;
         }
 
@@ -53,11 +63,11 @@
         .stats-banner {
             background: linear-gradient(135deg, #667eea15, #764ba215);
             border-radius: 30px;
-            padding: 12px 20px;
-            margin: 20px auto;
+            padding: 10px 18px;
+            margin: 15px auto;
             width: fit-content;
             display: flex;
-            gap: 20px;
+            gap: 18px;
             align-items: center;
             border: 1px solid #667eea30;
             animation: pulse 2s infinite;
@@ -66,14 +76,14 @@
         .stat-item {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
             color: #333;
             font-weight: 700;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
 
         .stat-number {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: #667eea;
         }
 
@@ -81,14 +91,15 @@
         .menu-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-bottom: 30px;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex: 1;
         }
 
         .menu-card {
             background: #ffffff;
-            border-radius: 15px;
-            padding: 20px 15px;
+            border-radius: 12px;
+            padding: 16px 12px;
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
@@ -97,15 +108,15 @@
             animation: fadeInUp 0.6s ease backwards;
         }
 
-        .menu-card:nth-child(1) { animation-delay: 0.1s; }
-        .menu-card:nth-child(2) { animation-delay: 0.15s; }
-        .menu-card:nth-child(3) { animation-delay: 0.2s; }
-        .menu-card:nth-child(4) { animation-delay: 0.25s; }
-        .menu-card:nth-child(5) { animation-delay: 0.3s; }
-        .menu-card:nth-child(6) { animation-delay: 0.35s; }
-        .menu-card:nth-child(7) { animation-delay: 0.4s; }
-        .menu-card:nth-child(8) { animation-delay: 0.45s; }
-        .menu-card:nth-child(9) { animation-delay: 0.5s; }
+        .menu-card:nth-child(1) { animation-delay: 0.05s; }
+        .menu-card:nth-child(2) { animation-delay: 0.1s; }
+        .menu-card:nth-child(3) { animation-delay: 0.15s; }
+        .menu-card:nth-child(4) { animation-delay: 0.2s; }
+        .menu-card:nth-child(5) { animation-delay: 0.25s; }
+        .menu-card:nth-child(6) { animation-delay: 0.3s; }
+        .menu-card:nth-child(7) { animation-delay: 0.35s; }
+        .menu-card:nth-child(8) { animation-delay: 0.4s; }
+        .menu-card:nth-child(9) { animation-delay: 0.45s; }
 
         .menu-card::before {
             content: '';
@@ -124,8 +135,8 @@
         }
 
         .menu-card:hover {
-            transform: translateY(-8px) scale(1.03);
-            box-shadow: 0 15px 35px rgba(102,126,234,0.15);
+            transform: translateY(-6px) scale(1.03);
+            box-shadow: 0 12px 30px rgba(102,126,234,0.15);
             border-color: #667eea;
         }
 
@@ -137,36 +148,36 @@
         }
 
         .menu-icon {
-            font-size: 2.8rem;
-            margin-bottom: 10px;
+            font-size: 2.4rem;
+            margin-bottom: 8px;
             display: block;
-            filter: drop-shadow(0 3px 6px rgba(0,0,0,0.1));
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
         }
 
         .menu-name {
-            font-size: 1.05rem;
+            font-size: 0.95rem;
             font-weight: 700;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
         }
 
         .menu-description {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: #999;
-            line-height: 1.3;
+            line-height: 1.2;
         }
 
         .menu-card.selected .menu-description {
             color: rgba(255,255,255,0.85);
         }
 
-        /* 로딩 화면 */
+        /* 로딩 화면 - 뷰포트 기준 고정 */
         .loading-screen {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             background: rgba(255,255,255,0.98);
             z-index: 1000;
             justify-content: center;
@@ -180,8 +191,8 @@
         }
 
         .crystal-ball {
-            width: 150px;
-            height: 150px;
+            width: 140px;
+            height: 140px;
             border-radius: 50%;
             background: radial-gradient(circle at 30% 30%, #fff, #667eea, #764ba2);
             box-shadow: 
@@ -215,7 +226,7 @@
 
         .loading-text {
             color: #333;
-            font-size: 1.1rem;
+            font-size: 1rem;
             margin-top: 25px;
             font-weight: 700;
             letter-spacing: 2px;
@@ -224,21 +235,22 @@
 
         .loading-dots {
             color: #667eea;
-            font-size: 1.5rem;
-            letter-spacing: 3px;
+            font-size: 1.3rem;
+            letter-spacing: 2px;
         }
 
         /* 결과 화면 */
         .result-screen {
             display: none;
             background: white;
-            border-radius: 20px;
-            padding: 30px 25px;
+            border-radius: 15px;
+            padding: 25px 20px;
             max-width: 550px;
             margin: 0 auto;
             box-shadow: 0 10px 40px rgba(102,126,234,0.1);
             border: 2px solid #f0f0f0;
             animation: scaleIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: 100%;
         }
 
         .result-screen.active {
@@ -247,49 +259,49 @@
 
         .result-header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         .result-menu {
-            font-size: 3.5rem;
-            margin-bottom: 15px;
+            font-size: 3rem;
+            margin-bottom: 10px;
             animation: bounce 1s ease;
         }
 
         .result-title {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             color: #333;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             font-weight: 900;
         }
 
         .result-subtitle {
             color: #666;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
 
         /* 운세 게이지 */
         .fortune-gauge {
-            margin: 30px 0;
+            margin: 20px 0;
         }
 
         .gauge-label {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 0.95rem;
         }
 
         .gauge-percentage {
             color: #667eea;
-            font-size: 1.6rem;
+            font-size: 1.4rem;
         }
 
         .gauge-bar-container {
-            height: 35px;
+            height: 30px;
             background: #f5f5f5;
-            border-radius: 18px;
+            border-radius: 15px;
             overflow: hidden;
             position: relative;
         }
@@ -297,7 +309,7 @@
         .gauge-bar {
             height: 100%;
             background: linear-gradient(90deg, #667eea, #764ba2, #FFD700);
-            border-radius: 18px;
+            border-radius: 15px;
             transition: width 2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
@@ -321,14 +333,14 @@
         /* 운세 상세 정보 */
         .fortune-details {
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border-radius: 15px;
-            padding: 25px;
-            margin: 25px 0;
+            border-radius: 12px;
+            padding: 18px;
+            margin: 18px 0;
         }
 
         .detail-item {
-            margin-bottom: 20px;
-            padding-bottom: 20px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
             border-bottom: 2px dashed rgba(0,0,0,0.08);
         }
 
@@ -341,32 +353,32 @@
         .detail-label {
             font-weight: 700;
             color: #667eea;
-            margin-bottom: 8px;
-            font-size: 0.95rem;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
         }
 
         .detail-content {
             color: #333;
-            font-size: 0.95rem;
-            line-height: 1.6;
+            font-size: 0.9rem;
+            line-height: 1.5;
         }
 
         /* 다시하기 버튼 */
         .retry-btn {
             width: 100%;
-            padding: 16px;
+            padding: 14px;
             border: none;
-            border-radius: 12px;
-            font-size: 1.05rem;
+            border-radius: 10px;
+            font-size: 0.95rem;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
             background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
-            margin-top: 25px;
+            margin-top: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -374,8 +386,8 @@
         }
 
         .retry-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(102,126,234,0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102,126,234,0.3);
         }
 
         /* 애니메이션 */
@@ -387,7 +399,7 @@
         @keyframes fadeInDown {
             from {
                 opacity: 0;
-                transform: translateY(-30px);
+                transform: translateY(-20px);
             }
             to {
                 opacity: 1;
@@ -398,7 +410,7 @@
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(20px);
             }
             to {
                 opacity: 1;
@@ -409,7 +421,7 @@
         @keyframes scaleIn {
             from {
                 opacity: 0;
-                transform: scale(0.7);
+                transform: scale(0.8);
             }
             to {
                 opacity: 1;
@@ -419,8 +431,8 @@
 
         @keyframes bounce {
             0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-20px); }
-            60% { transform: translateY(-10px); }
+            40% { transform: translateY(-15px); }
+            60% { transform: translateY(-8px); }
         }
 
         @keyframes pulse {
@@ -428,45 +440,154 @@
             50% { opacity: 0.6; }
         }
 
-        /* 반응형 */
+        /* 모바일 반응형 */
         @media (max-width: 768px) {
+            body {
+                padding: 12px;
+            }
+
             .header h1 {
-                font-size: 1.5rem;
+                font-size: 1.4rem;
+            }
+
+            .header .subtitle {
+                font-size: 0.85rem;
             }
 
             .menu-grid {
-                grid-template-columns: repeat(3, 1fr);
                 gap: 10px;
+                margin-bottom: 15px;
             }
 
             .menu-card {
-                padding: 15px 10px;
+                padding: 14px 10px;
             }
 
             .menu-icon {
-                font-size: 2.2rem;
+                font-size: 2rem;
+                margin-bottom: 6px;
             }
 
             .menu-name {
-                font-size: 0.9rem;
+                font-size: 0.85rem;
             }
 
             .menu-description {
-                font-size: 0.7rem;
+                font-size: 0.65rem;
             }
 
             .stats-banner {
-                flex-direction: column;
-                gap: 8px;
-                padding: 12px 18px;
+                gap: 12px;
+                padding: 8px 15px;
+                margin: 12px auto;
+            }
+
+            .stat-item {
+                font-size: 0.75rem;
+            }
+
+            .stat-number {
+                font-size: 0.9rem;
             }
 
             .result-screen {
-                padding: 25px 20px;
+                padding: 20px 18px;
+                margin: 0;
             }
 
             .result-menu {
-                font-size: 3rem;
+                font-size: 2.5rem;
+                margin-bottom: 8px;
+            }
+
+            .result-title {
+                font-size: 1.15rem;
+            }
+
+            .result-subtitle {
+                font-size: 0.85rem;
+            }
+
+            .gauge-label {
+                font-size: 0.85rem;
+            }
+
+            .gauge-percentage {
+                font-size: 1.2rem;
+            }
+
+            .fortune-details {
+                padding: 15px;
+                margin: 15px 0;
+            }
+
+            .detail-item {
+                margin-bottom: 12px;
+                padding-bottom: 12px;
+            }
+
+            .detail-label {
+                font-size: 0.85rem;
+                margin-bottom: 5px;
+            }
+
+            .detail-content {
+                font-size: 0.85rem;
+                line-height: 1.4;
+            }
+
+            .retry-btn {
+                padding: 12px;
+                font-size: 0.9rem;
+                margin-top: 15px;
+            }
+
+            .crystal-ball {
+                width: 120px;
+                height: 120px;
+            }
+
+            .loading-text {
+                font-size: 0.9rem;
+                margin-top: 20px;
+            }
+        }
+
+        /* 아주 작은 화면 */
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.2rem;
+                margin-bottom: 3px;
+            }
+
+            .header .subtitle {
+                font-size: 0.8rem;
+            }
+
+            .stats-banner {
+                gap: 10px;
+                padding: 7px 12px;
+            }
+
+            .menu-grid {
+                gap: 8px;
+            }
+
+            .menu-icon {
+                font-size: 1.8rem;
+            }
+
+            .result-menu {
+                font-size: 2.2rem;
+                margin-bottom: 6px;
+            }
+
+            .result-title {
+                font-size: 1rem;
+            }
+
+            .gauge-percentage {
+                font-size: 1.1rem;
             }
         }
     </style>
@@ -482,12 +603,8 @@
         <!-- 실시간 통계 -->
         <div class="stats-banner">
             <div class="stat-item">
-                🔥 실시간
+                🔥 참여자
                 <span class="stat-number" id="liveUsers">12,847</span>명
-            </div>
-            <div class="stat-item">
-                ⏰ 남은시간
-                <span class="stat-number" id="countdown">05:23:41</span>
             </div>
         </div>
 
@@ -516,7 +633,7 @@
 
             <div class="fortune-gauge">
                 <div class="gauge-label">
-                    <span>💰 오늘의 재물운</span>
+                    <span>💰 재물운</span>
                     <span class="gauge-percentage" id="fortunePercent">92%</span>
                 </div>
                 <div class="gauge-bar-container">
@@ -626,27 +743,6 @@
         }
         updateLiveUsers();
 
-        // 카운트다운 타이머
-        function updateCountdown() {
-            const countdownElement = document.getElementById('countdown');
-            function tick() {
-                const now = new Date();
-                const midnight = new Date(now);
-                midnight.setHours(24, 0, 0, 0);
-                const diff = midnight - now;
-                
-                const hours = Math.floor(diff / (1000 * 60 * 60));
-                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-                
-                countdownElement.textContent = 
-                    `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-            }
-            tick();
-            setInterval(tick, 1000);
-        }
-        updateCountdown();
-
         // 로딩 화면 표시
         function showLoading(menuType) {
             document.getElementById('loadingScreen').classList.add('active');
@@ -672,8 +768,8 @@
             // 메뉴 정보 찾기
             const menu = allMenus.find(m => m.menu_id === menuType);
             
-            document.getElementById('menuSelection').style.display = 'none';
             document.getElementById('loadingScreen').classList.remove('active');
+            document.getElementById('menuSelection').style.display = 'none';
             document.getElementById('resultScreen').classList.add('active');
             
             document.getElementById('resultIcon').textContent = menu.icon;
@@ -687,6 +783,9 @@
             setTimeout(() => {
                 document.getElementById('gaugeBar').style.width = randomResult.fortune + '%';
             }, 300);
+
+            // 스크롤을 맨 위로
+            window.scrollTo(0, 0);
         }
 
         // 다시하기
