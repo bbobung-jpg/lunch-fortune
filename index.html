@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오늘의 점심 운세 🔮</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Playfair+Display:wght@700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        /* 별똥별 배경 애니메이션 */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        /* 메인 컨테이너 */
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* 헤더 */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(255,255,255,0.5);
+            margin-bottom: 10px;
+        }
+
+        .header .subtitle {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.9);
+            letter-spacing: 2px;
+        }
+
+        /* 실시간 통계 배너 */
+        .stats-banner {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
+            padding: 15px 30px;
+            margin: 30px auto;
+            width: fit-content;
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            border: 1px solid rgba(255,255,255,0.2);
+            animation: pulse 2s infinite;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            font-weight: 700;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            color: #FFD700;
+        }
+
+        /* 메뉴 카드 그리드 */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .menu-card {
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            padding: 30px 20px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            border: 3px solid transparent;
+            animation: fadeInUp 0.6s ease backwards;
+        }
+
+        .menu-card:nth-child(1) { animation-delay: 0.1s; }
+        .menu-card:nth-child(2) { animation-delay: 0.2s; }
+        .menu-card:nth-child(3) { animation-delay: 0.3s; }
+        .menu-card:nth-child(4) { animation-delay: 0.4s; }
+        .menu-card:nth-child(5) { animation-delay: 0.5s; }
+        .menu-card:nth-child(6) { animation-delay: 0.6s; }
+
+        .menu-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,215,0,0.3), transparent);
+            transform: rotate(45deg);
+            transition: 0.6s;
+        }
+
+        .menu-card:hover::before {
+            left: 100%;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border-color: #FFD700;
+        }
+
+        .menu-card.selected {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .menu-icon {
+            font-size: 4rem;
+            margin-bottom: 15px;
+            display: block;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.2));
+        }
+
+        .menu-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .menu-description {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .menu-card.selected .menu-description {
+            color: rgba(255,255,255,0.9);
+        }
+
+        /* 로딩 화면 */
+        .loading-screen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .loading-screen.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .crystal-ball {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #fff, #667eea, #764ba2);
+            box-shadow: 
+                0 0 50px rgba(102, 126, 234, 0.8),
+                inset 0 0 50px rgba(255,255,255,0.3);
+            animation: float 3s ease-in-out infinite, glow 2s ease-in-out infinite;
+            position: relative;
+        }
+
+        .crystal-ball::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            width: 40%;
+            height: 40%;
+            background: radial-gradient(circle, rgba(255,255,255,0.8), transparent);
+            border-radius: 50%;
+            filter: blur(10px);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 50px rgba(102, 126, 234, 0.8); }
+            50% { box-shadow: 0 0 80px rgba(102, 126, 234, 1); }
+        }
+
+        .loading-text {
+            color: white;
+            font-size: 1.5rem;
+            margin-top: 30px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            animation: pulse 1.5s infinite;
+        }
+
+        .loading-dots {
+            color: #FFD700;
+            font-size: 2rem;
+            letter-spacing: 5px;
+        }
+
+        /* 결과 화면 */
+        .result-screen {
+            display: none;
+            background: white;
+            border-radius: 30px;
+            padding: 50px;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+            animation: scaleIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .result-screen.active {
+            display: block;
+        }
+
+        .result-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .result-menu {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            animation: bounce 1s ease;
+        }
+
+        .result-title {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 900;
+        }
+
+        .result-subtitle {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        /* 운세 게이지 */
+        .fortune-gauge {
+            margin: 40px 0;
+        }
+
+        .gauge-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+
+        .gauge-percentage {
+            color: #667eea;
+            font-size: 2rem;
+        }
+
+        .gauge-bar-container {
+            height: 40px;
+            background: #f0f0f0;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .gauge-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2, #FFD700);
+            border-radius: 20px;
+            transition: width 2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gauge-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+            animation: shine 2s infinite;
+        }
+
+        @keyframes shine {
+            to { left: 100%; }
+        }
+
+        /* 운세 상세 정보 */
+        .fortune-details {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .detail-item {
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 2px dashed rgba(0,0,0,0.1);
+        }
+
+        .detail-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .detail-label {
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .detail-content {
+            color: #333;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* 공유 버튼들 */
+        .share-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 40px;
+        }
+
+        .share-btn {
+            padding: 18px;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .share-btn.kakao {
+            background: #FEE500;
+            color: #000;
+        }
+
+        .share-btn.instagram {
+            background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+            color: white;
+        }
+
+        .share-btn.download {
+            background: #667eea;
+            color: white;
+        }
+
+        .share-btn.retry {
+            background: #764ba2;
+            color: white;
+        }
+
+        .share-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* 애니메이션 */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-30px); }
+            60% { transform: translateY(-15px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+
+            .menu-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+
+            .menu-card {
+                padding: 20px 15px;
+            }
+
+            .menu-icon {
+                font-size: 3rem;
+            }
+
+            .stats-banner {
+                flex-direction: column;
+                gap: 10px;
+                padding: 15px 20px;
+            }
+
+            .result-screen {
+                padding: 30px 20px;
+            }
+
+            .share-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 별똥별 배경 -->
+    <div class="stars" id="stars"></div>
+
+    <div class="container">
+        <!-- 헤더 -->
+        <div class="header">
+            <h1>🔮 오늘의 점심 운세</h1>
+            <p class="subtitle">당신이 선택한 메뉴가 오늘의 운명을 결정합니다</p>
+        </div>
+
+        <!-- 실시간 통계 -->
+        <div class="stats-banner">
+            <div class="stat-item">
+                🔥 실시간 참여자
+                <span class="stat-number" id="liveUsers">12,847</span>명
+            </div>
+            <div class="stat-item">
+                ⏰ 오늘 남은 시간
+                <span class="stat-number" id="countdown">05:23:41</span>
+            </div>
+        </div>
+
+        <!-- 메뉴 선택 화면 -->
+        <div id="menuSelection">
+            <div class="menu-grid">
+                <div class="menu-card" data-menu="pizza">
+                    <span class="menu-icon">🍕</span>
+                    <div class="menu-name">피자</div>
+                    <div class="menu-description">대담한 선택, 큰 행운의 전조</div>
+                </div>
+                
+                <div class="menu-card" data-menu="chicken">
+                    <span class="menu-icon">🍗</span>
+                    <div class="menu-name">치킨</div>
+                    <div class="menu-description">황금빛 기회가 찾아옵니다</div>
+                </div>
+                
+                <div class="menu-card" data-menu="jjigae">
+                    <span class="menu-icon">🍲</span>
+                    <div class="menu-name">김치찌개</div>
+                    <div class="menu-description">따뜻한 인연의 시작</div>
+                </div>
+                
+                <div class="menu-card" data-menu="ramen">
+                    <span class="menu-icon">🍜</span>
+                    <div class="menu-name">라면</div>
+                    <div class="menu-description">단순함 속의 지혜</div>
+                </div>
+                
+                <div class="menu-card" data-menu="salad">
+                    <span class="menu-icon">🥗</span>
+                    <div class="menu-name">샐러드</div>
+                    <div class="menu-description">건강이 곧 재산입니다</div>
+                </div>
+                
+                <div class="menu-card" data-menu="burger">
+                    <span class="menu-icon">🍔</span>
+                    <div class="menu-name">햄버거</div>
+                    <div class="menu-description">빠른 결단, 빠른 성공</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 로딩 화면 -->
+        <div class="loading-screen" id="loadingScreen">
+            <div class="crystal-ball"></div>
+            <div class="loading-text">
+                운세 분석 중<span class="loading-dots">...</span>
+            </div>
+        </div>
+
+        <!-- 결과 화면 -->
+        <div class="result-screen" id="resultScreen">
+            <div class="result-header">
+                <div class="result-menu" id="resultIcon">🍕</div>
+                <h2 class="result-title" id="resultTitle">피자의 선택자</h2>
+                <p class="result-subtitle" id="resultSubtitle">대담함이 곧 행운입니다</p>
+            </div>
+
+            <div class="fortune-gauge">
+                <div class="gauge-label">
+                    <span>💰 오늘의 재물운</span>
+                    <span class="gauge-percentage" id="fortunePercent">92%</span>
+                </div>
+                <div class="gauge-bar-container">
+                    <div class="gauge-bar" id="gaugeBar" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <div class="fortune-details">
+                <div class="detail-item">
+                    <div class="detail-label">🌟 오늘의 한마디</div>
+                    <div class="detail-content" id="todayMessage">
+                        큰 결정을 내리기 좋은 날입니다. 오후 3시 이후 중요한 기회가 찾아올 수 있습니다.
+                    </div>
+                </div>
+                
+                <div class="detail-item">
+                    <div class="detail-label">💎 행운의 아이템</div>
+                    <div class="detail-content" id="luckyItem">
+                        금색 액세서리, 커피
+                    </div>
+                </div>
+                
+                <div class="detail-item">
+                    <div class="detail-label">🎯 추천 행동</div>
+                    <div class="detail-content" id="recommendAction">
+                        상사나 선배에게 먼저 인사하세요. 예상치 못한 칭찬을 들을 수 있습니다.
+                    </div>
+                </div>
+            </div>
+
+            <div class="share-buttons">
+                <button class="share-btn kakao" onclick="shareKakao()">
+                    <span>💬</span> 카톡 공유
+                </button>
+                <button class="share-btn instagram" onclick="shareInstagram()">
+                    <span>📷</span> 인스타 공유
+                </button>
+                <button class="share-btn download" onclick="downloadResult()">
+                    <span>💾</span> 결과 저장
+                </button>
+                <button class="share-btn retry" onclick="retry()">
+                    <span>🔄</span> 다시 하기
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 별똥별 생성
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+        createStars();
+
+        // 실시간 사용자 수 랜덤 증가
+        function updateLiveUsers() {
+            const usersElement = document.getElementById('liveUsers');
+            let currentUsers = parseInt(usersElement.textContent.replace(',', ''));
+            setInterval(() => {
+                currentUsers += Math.floor(Math.random() * 10) + 1;
+                usersElement.textContent = currentUsers.toLocaleString();
+            }, 3000);
+        }
+        updateLiveUsers();
+
+        // 카운트다운 타이머
+        function updateCountdown() {
+            const countdownElement = document.getElementById('countdown');
+            function tick() {
+                const now = new Date();
+                const midnight = new Date(now);
+                midnight.setHours(24, 0, 0, 0);
+                const diff = midnight - now;
+                
+                const hours = Math.floor(diff / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                
+                countdownElement.textContent = 
+                    `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            }
+            tick();
+            setInterval(tick, 1000);
+        }
+        updateCountdown();
+
+        // 메뉴 데이터
+        const menuData = {
+            pizza: {
+                icon: '🍕',
+                title: '피자의 선택자',
+                subtitle: '대담함이 곧 행운입니다',
+                fortune: 92,
+                message: '큰 결정을 내리기 좋은 날입니다. 오후 3시 이후 중요한 기회가 찾아올 수 있습니다.',
+                luckyItem: '금색 액세서리, 커피',
+                action: '상사나 선배에게 먼저 인사하세요. 예상치 못한 칭찬을 들을 수 있습니다.'
+            },
+            chicken: {
+                icon: '🍗',
+                title: '치킨의 선택자',
+                subtitle: '황금빛 기회를 잡으세요',
+                fortune: 88,
+                message: '오늘 하루는 모든 일이 순조롭게 풀립니다. 특히 금전적인 부분에서 좋은 소식이 있을 수 있습니다.',
+                luckyItem: '노란색 소품, 에너지 드링크',
+                action: '오후에 복권을 구매해보세요. 작은 행운이 찾아올 수 있습니다.'
+            },
+            jjigae: {
+                icon: '🍲',
+                title: '김치찌개의 선택자',
+                subtitle: '따뜻한 인연의 시작',
+                fortune: 76,
+                message: '주변 사람들과의 관계가 더욱 돈독해집니다. 오래된 친구에게 연락해보세요.',
+                luckyItem: '빨간색 아이템, 따뜻한 차',
+                action: '점심 후 동료들과 커피 한잔 하면서 소소한 대화를 나누세요.'
+            },
+            ramen: {
+                icon: '🍜',
+                title: '라면의 선택자',
+                subtitle: '단순함 속의 지혜',
+                fortune: 65,
+                message: '복잡한 생각을 내려놓고 단순하게 접근하면 해결책이 보입니다.',
+                luckyItem: '흰색 옷, 생수',
+                action: '오늘은 무리하지 말고 일찍 퇴근하세요. 충분한 휴식이 내일의 행운을 부릅니다.'
+            },
+            salad: {
+                icon: '🥗',
+                title: '샐러드의 선택자',
+                subtitle: '건강이 곧 재산입니다',
+                fortune: 81,
+                message: '건강한 선택이 금전적 이익으로 돌아옵니다. 장기적인 투자를 고려해보세요.',
+                luckyItem: '초록색 소품, 비타민',
+                action: '퇴근 후 가벼운 운동을 하세요. 예상치 못한 좋은 만남이 있을 수 있습니다.'
+            },
+            burger: {
+                icon: '🍔',
+                title: '햄버거의 선택자',
+                subtitle: '빠른 결단, 빠른 성공',
+                fortune: 79,
+                message: '스피드가 생명입니다. 오늘 미뤘던 일을 바로 처리하면 큰 성과를 얻을 수 있습니다.',
+                luckyItem: '시계, 스마트폰',
+                action: '오전 중에 중요한 이메일이나 메시지를 확인하세요. 놓치면 안 될 기회가 있습니다.'
+            }
+        };
+
+        // 메뉴 선택 이벤트
+        document.querySelectorAll('.menu-card').forEach(card => {
+            card.addEventListener('click', function() {
+                // 이전 선택 제거
+                document.querySelectorAll('.menu-card').forEach(c => c.classList.remove('selected'));
+                // 현재 선택 표시
+                this.classList.add('selected');
+                
+                // 1초 후 로딩 화면 표시
+                setTimeout(() => {
+                    const menuType = this.dataset.menu;
+                    showLoading(menuType);
+                }, 500);
+            });
+        });
+
+        // 로딩 화면 표시
+        function showLoading(menuType) {
+            document.getElementById('loadingScreen').classList.add('active');
+            
+            // 3초 후 결과 표시
+            setTimeout(() => {
+                showResult(menuType);
+            }, 3000);
+        }
+
+        // 결과 표시
+        function showResult(menuType) {
+            const data = menuData[menuType];
+            
+            // 화면 전환
+            document.getElementById('menuSelection').style.display = 'none';
+            document.getElementById('loadingScreen').classList.remove('active');
+            document.getElementById('resultScreen').classList.add('active');
+            
+            // 데이터 입력
+            document.getElementById('resultIcon').textContent = data.icon;
+            document.getElementById('resultTitle').textContent = data.title;
+            document.getElementById('resultSubtitle').textContent = data.subtitle;
+            document.getElementById('fortunePercent').textContent = data.fortune + '%';
+            document.getElementById('todayMessage').textContent = data.message;
+            document.getElementById('luckyItem').textContent = data.luckyItem;
+            document.getElementById('recommendAction').textContent = data.action;
+            
+            // 게이지 애니메이션
+            setTimeout(() => {
+                document.getElementById('gaugeBar').style.width = data.fortune + '%';
+            }, 300);
+
+            // 로컬스토리지에 결과 저장 (오늘 날짜로)
+            const today = new Date().toDateString();
+            localStorage.setItem('lastResult', JSON.stringify({
+                date: today,
+                menu: menuType,
+                data: data
+            }));
+        }
+
+        // 공유 기능들
+        function shareKakao() {
+            alert('카카오톡 공유 기능은 카카오 API 연동이 필요합니다.');
+            // 실제 구현시 Kakao SDK 사용
+        }
+
+        function shareInstagram() {
+            alert('인스타그램은 모바일 앱에서만 직접 공유가 가능합니다.\n결과를 저장한 후 인스타그램 앱에서 업로드해주세요!');
+        }
+
+        function downloadResult() {
+            alert('이미지 다운로드 기능은 HTML2Canvas 라이브러리가 필요합니다.');
+            // 실제 구현시 html2canvas 사용
+        }
+
+        function retry() {
+            document.getElementById('resultScreen').classList.remove('active');
+            document.getElementById('menuSelection').style.display = 'block';
+            document.querySelectorAll('.menu-card').forEach(c => c.classList.remove('selected'));
+            document.getElementById('gaugeBar').style.width = '0%';
+        }
+
+        // 페이지 로드시 오늘 이미 했는지 체크
+        window.addEventListener('load', () => {
+            const lastResult = localStorage.getItem('lastResult');
+            if (lastResult) {
+                const saved = JSON.parse(lastResult);
+                const today = new Date().toDateString();
+                
+                // 오늘 이미 했다면 바로 결과 표시 (선택사항)
+                // if (saved.date === today) {
+                //     showResult(saved.menu);
+                // }
+            }
+        });
+    </script>
+</body>
+</html>
