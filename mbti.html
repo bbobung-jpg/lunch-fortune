@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MBTI 무료 성격 테스트</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            animation: fadeInDown 0.8s;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .progress-bar {
+            background: #f0f0f0;
+            height: 8px;
+            position: relative;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            height: 100%;
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .start-screen, .question-screen, .result-screen {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .start-screen.active, .question-screen.active, .result-screen.active {
+            display: block;
+        }
+
+        .start-screen {
+            text-align: center;
+        }
+
+        .start-screen h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+
+        .start-screen p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .question-container {
+            margin-bottom: 30px;
+        }
+
+        .question-number {
+            color: #764ba2;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+        }
+
+        .question-text {
+            color: #333;
+            font-size: 1.4em;
+            font-weight: 600;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .option-btn {
+            background: white;
+            border: 2px solid #e0e0e0;
+            padding: 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1em;
+            text-align: left;
+            color: #333;
+        }
+
+        .option-btn:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+            transform: translateX(5px);
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .result-screen {
+            text-align: center;
+        }
+
+        .mbti-result {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            font-size: 3em;
+            font-weight: bold;
+            letter-spacing: 5px;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .result-description {
+            background: #f8f9ff;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .result-description h3 {
+            color: #764ba2;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .result-description p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .characteristics {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .characteristic-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .question-text {
+                font-size: 1.2em;
+            }
+
+            .mbti-result {
+                font-size: 2em;
+            }
+
+            .characteristics {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧠 MBTI 성격 테스트</h1>
+            <p>나를 발견하는 특별한 시간</p>
+        </div>
+        
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="content">
+            <!-- 시작 화면 -->
+            <div class="start-screen active" id="startScreen">
+                <h2>당신의 성격 유형을 알아보세요!</h2>
+                <p>
+                    MBTI는 세계에서 가장 널리 사용되는 성격 유형 검사입니다.<br>
+                    12개의 간단한 질문으로 당신의 성격 유형을 파악해보세요.<br><br>
+                    솔직하게 답변해주시면 더 정확한 결과를 얻을 수 있습니다.
+                </p>
+                <button class="btn" onclick="startTest()">테스트 시작하기</button>
+            </div>
+
+            <!-- 질문 화면 -->
+            <div class="question-screen" id="questionScreen">
+                <div class="question-container">
+                    <div class="question-number" id="questionNumber"></div>
+                    <div class="question-text" id="questionText"></div>
+                    <div class="options" id="options"></div>
+                </div>
+            </div>
+
+            <!-- 결과 화면 -->
+            <div class="result-screen" id="resultScreen">
+                <h2>당신의 MBTI 유형은...</h2>
+                <div class="mbti-result" id="mbtiResult"></div>
+                <div class="result-description" id="resultDescription"></div>
+                <button class="btn" onclick="restartTest()">다시 테스트하기</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "새로운 사람들을 만날 때 나는...",
+                options: [
+                    { text: "먼저 다가가서 대화를 시작한다", type: "E" },
+                    { text: "상대방이 먼저 말을 걸어주길 기다린다", type: "I" }
+                ]
+            },
+            {
+                question: "주말을 보낼 때 더 끌리는 것은?",
+                options: [
+                    { text: "친구들과 활기찬 모임", type: "E" },
+                    { text: "집에서 혼자만의 시간", type: "I" }
+                ]
+            },
+            {
+                question: "문제를 해결할 때 나는...",
+                options: [
+                    { text: "실제 경험과 사실에 근거해서 판단한다", type: "S" },
+                    { text: "가능성과 의미를 상상하며 판단한다", type: "N" }
+                ]
+            },
+            {
+                question: "새로운 것을 배울 때 선호하는 방식은?",
+                options: [
+                    { text: "단계별로 구체적인 지침을 따른다", type: "S" },
+                    { text: "전체적인 개념을 먼저 이해한다", type: "N" }
+                ]
+            },
+            {
+                question: "중요한 결정을 내릴 때...",
+                options: [
+                    { text: "논리적으로 분석하고 객관적으로 판단한다", type: "T" },
+                    { text: "사람들의 감정과 관계를 중요하게 생각한다", type: "F" }
+                ]
+            },
+            {
+                question: "친구가 고민을 털어놓을 때 나는...",
+                options: [
+                    { text: "해결책을 제시한다", type: "T" },
+                    { text: "공감하고 위로한다", type: "F" }
+                ]
+            },
+            {
+                question: "여행을 계획할 때...",
+                options: [
+                    { text: "세부 일정을 미리 계획한다", type: "J" },
+                    { text: "대략적인 계획만 세우고 즉흥적으로 움직인다", type: "P" }
+                ]
+            },
+            {
+                question: "일을 처리하는 방식은?",
+                options: [
+                    { text: "마감일 전에 미리 끝내놓는다", type: "J" },
+                    { text: "마감일이 다가와야 집중이 된다", type: "P" }
+                ]
+            },
+            {
+                question: "에너지를 얻는 방법은?",
+                options: [
+                    { text: "사람들과 어울리면서", type: "E" },
+                    { text: "혼자 있는 시간을 통해", type: "I" }
+                ]
+            },
+            {
+                question: "대화할 때 나는...",
+                options: [
+                    { text: "구체적인 사실과 세부사항을 이야기한다", type: "S" },
+                    { text: "큰 그림과 전체적인 맥락을 이야기한다", type: "N" }
+                ]
+            },
+            {
+                question: "갈등 상황에서 나는...",
+                options: [
+                    { text: "옳고 그름을 따진다", type: "T" },
+                    { text: "상대방의 기분을 먼저 생각한다", type: "F" }
+                ]
+            },
+            {
+                question: "일상생활에서 나는...",
+                options: [
+                    { text: "계획대로 규칙적으로 생활한다", type: "J" },
+                    { text: "그때그때 상황에 맞춰 유연하게 생활한다", type: "P" }
+                ]
+            }
+        ];
+
+        const mbtiDescriptions = {
+            "ISTJ": {
+                title: "세상의 소금형",
+                description: "책임감이 강하고 체계적입니다. 정확하고 신중하며, 전통과 질서를 중시합니다.",
+                characteristics: ["성실함", "책임감", "조직적", "현실적"]
+            },
+            "ISFJ": {
+                title: "임금 뒤편의 권력형",
+                description: "따뜻하고 헌신적입니다. 다른 사람을 돕는 것을 좋아하며, 세심하고 책임감이 강합니다.",
+                characteristics: ["친절함", "헌신적", "세심함", "보호적"]
+            },
+            "INFJ": {
+                title: "예언자형",
+                description: "통찰력이 뛰어나고 이상주의적입니다. 깊은 내면세계를 가지고 있으며, 타인을 이해하는 능력이 탁월합니다.",
+                characteristics: ["통찰력", "이상주의", "창의적", "원칙적"]
+            },
+            "INTJ": {
+                title: "과학자형",
+                description: "독립적이고 전략적입니다. 논리적이고 혁신적이며, 장기적인 비전을 가지고 있습니다.",
+                characteristics: ["전략적", "독립적", "논리적", "혁신적"]
+            },
+            "ISTP": {
+                title: "백과사전형",
+                description: "분석적이고 실용적입니다. 문제 해결 능력이 뛰어나며, 논리적으로 사고합니다.",
+                characteristics: ["분석적", "실용적", "독립적", "적응력"]
+            },
+            "ISFP": {
+                title: "성인군자형",
+                description: "온화하고 겸손합니다. 예술적 감각이 뛰어나며, 현재를 즐기는 성향이 있습니다.",
+                characteristics: ["온화함", "예술적", "유연함", "배려심"]
+            },
+            "INFP": {
+                title: "잔다르크형",
+                description: "이상주의적이고 창의적입니다. 가치와 의미를 중시하며, 깊은 감수성을 지니고 있습니다.",
+                characteristics: ["이상주의", "창의적", "공감능력", "진실함"]
+            },
+            "INTP": {
+                title: "아이디어 뱅크형",
+                description: "논리적이고 분석적입니다. 지적 호기심이 많으며, 객관적으로 사고합니다.",
+                characteristics: ["논리적", "분석적", "독창적", "호기심"]
+            },
+            "ESTP": {
+                title: "수완좋은 활동가형",
+                description: "활동적이고 현실적입니다. 순발력이 뛰어나며, 모험을 즐깁니다.",
+                characteristics: ["활동적", "현실적", "대담함", "사교적"]
+            },
+            "ESFP": {
+                title: "사교적인 유형",
+                description: "사교적이고 즐거움을 추구합니다. 낙천적이며, 주변을 즐겁게 만듭니다.",
+                characteristics: ["사교적", "낙천적", "열정적", "친근함"]
+            },
+            "ENFP": {
+                title: "스파크형",
+                description: "열정적이고 창의적입니다. 새로운 가능성을 탐구하며, 사람들에게 영감을 줍니다.",
+                characteristics: ["열정적", "창의적", "낙관적", "자유로움"]
+            },
+            "ENTP": {
+                title: "발명가형",
+                description: "창의적이고 도전적입니다. 새로운 아이디어를 탐구하며, 논쟁을 즐깁니다.",
+                characteristics: ["혁신적", "논리적", "도전적", "재치있음"]
+            },
+            "ESTJ": {
+                title: "사업가형",
+                description: "체계적이고 실용적입니다. 리더십이 강하며, 효율성을 중시합니다.",
+                characteristics: ["체계적", "리더십", "실용적", "결단력"]
+            },
+            "ESFJ": {
+                title: "친선도모형",
+                description: "친절하고 협조적입니다. 타인을 돕는 것을 좋아하며, 조화를 중시합니다.",
+                characteristics: ["친절함", "협조적", "책임감", "사교적"]
+            },
+            "ENFJ": {
+                title: "언변능숙형",
+                description: "카리스마 있고 영향력이 있습니다. 타인을 이해하고 격려하는 능력이 뛰어납니다.",
+                characteristics: ["카리스마", "공감능력", "영향력", "이타적"]
+            },
+            "ENTJ": {
+                title: "지도자형",
+                description: "결단력 있고 전략적입니다. 목표 지향적이며, 강한 리더십을 발휘합니다.",
+                characteristics: ["리더십", "전략적", "결단력", "효율적"]
+            }
+        };
+
+        let currentQuestion = 0;
+        let scores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
+
+        function startTest() {
+            document.getElementById('startScreen').classList.remove('active');
+            document.getElementById('questionScreen').classList.add('active');
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const question = questions[currentQuestion];
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('questionNumber').textContent = `질문 ${currentQuestion + 1} / ${questions.length}`;
+            document.getElementById('questionText').textContent = question.question;
+            
+            const optionsContainer = document.getElementById('options');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.textContent = option.text;
+                button.onclick = () => selectOption(option.type);
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function selectOption(type) {
+            scores[type]++;
+            currentQuestion++;
+            
+            if (currentQuestion < questions.length) {
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            const mbti = 
+                (scores.E > scores.I ? 'E' : 'I') +
+                (scores.S > scores.N ? 'S' : 'N') +
+                (scores.T > scores.F ? 'T' : 'F') +
+                (scores.J > scores.P ? 'J' : 'P');
+            
+            const result = mbtiDescriptions[mbti];
+            
+            document.getElementById('questionScreen').classList.remove('active');
+            document.getElementById('resultScreen').classList.add('active');
+            document.getElementById('progressFill').style.width = '100%';
+            
+            document.getElementById('mbtiResult').textContent = mbti;
+            
+            const descriptionHTML = `
+                <h3>${result.title}</h3>
+                <p>${result.description}</p>
+                <div class="characteristics">
+                    ${result.characteristics.map(char => 
+                        `<div class="characteristic-item">✨ ${char}</div>`
+                    ).join('')}
+                </div>
+            `;
+            
+            document.getElementById('resultDescription').innerHTML = descriptionHTML;
+        }
+
+        function restartTest() {
+            currentQuestion = 0;
+            scores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
+            
+            document.getElementById('resultScreen').classList.remove('active');
+            document.getElementById('startScreen').classList.add('active');
+            document.getElementById('progressFill').style.width = '0%';
+        }
+    </script>
+</body>
+</html>
