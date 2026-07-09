@@ -31,22 +31,24 @@
         }
 
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 35px;
-            text-align: center;
-            transition: display 0.3s;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 0;
+    text-align: center;
         }
 
         .header h1 {
-            font-size: 2.2em;
-            margin-bottom: 10px;
-            animation: fadeInDown 0.8s;
+    font-size: 2.2em;
+    margin-bottom: 0;  /* 10px → 0 */
+    animation: fadeInDown 0.8s;
+    padding: 15px 0;  /* 상하 패딩만 줌 */
         }
 
         .header p {
-            font-size: 0.95em;
-            opacity: 0.9;
+    font-size: 0.95em;
+    opacity: 0.9;
+    margin: 0;  /* 추가 */
+    padding: 0 0 15px 0;  /* 하단 패딩 */
         }
 
         .progress-bar {
