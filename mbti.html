@@ -11,41 +11,42 @@
             box-sizing: border-box;
         }
 
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif';
-    background: white;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;  /* center에서 flex-start로 변경 */
-    padding: 0;
-}
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+        }
 
-.container {
-    background: white;
-    border-radius: 20px;
-    box-shadow: none;  /* 이 부분을 수정! */
-    max-width: 800px;
-    width: 100%;
-    overflow: hidden;
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: none;
+            max-width: 800px;
+            width: 100%;
+            overflow: hidden;
         }
 
         .header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 30px;  /* 40px → 30px */
-    text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 35px;
+            text-align: center;
+            transition: display 0.3s;
         }
 
-   .header h1 {
-    font-size: 2em;  /* 2.5em → 2em */
-    margin-bottom: 10px;
-    animation: fadeInDown 0.8s;
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            animation: fadeInDown 0.8s;
         }
 
-.header p {
-    font-size: 0.95em;  /* 1.1em → 0.95em */
-    opacity: 0.9;
+        .header p {
+            font-size: 0.95em;
+            opacity: 0.9;
         }
 
         .progress-bar {
@@ -102,13 +103,13 @@ body {
             font-size: 0.9em;
         }
 
-.question-text {
-    color: #333;
-    font-size: 1.2em;  /* 1.4em → 1.2em */
-    font-weight: 600;
-    margin-bottom: 30px;
-    line-height: 1.5;
-}
+        .question-text {
+            color: #333;
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
 
         .options {
             display: flex;
@@ -116,16 +117,16 @@ body {
             gap: 15px;
         }
 
-  .option-btn {
-    background: white;
-    border: 2px solid #e0e0e0;
-    padding: 15px;  /* 20px → 15px */
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.3s;
-    font-size: 0.95em;  /* 1em → 0.95em */
-    text-align: left;
-    color: #333;
+        .option-btn {
+            background: white;
+            border: 2px solid #e0e0e0;
+            padding: 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.95em;
+            text-align: left;
+            color: #333;
         }
 
         .option-btn:hover {
@@ -134,37 +135,38 @@ body {
             transform: translateX(5px);
         }
 
-         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    padding: 12px 30px;  /* 15px 40px → 12px 30px */
-    border-radius: 50px;
-    font-size: 0.95em;  /* 1.1em → 0.95em */
-    cursor: pointer;
-    transition: all 0.3s;
-    box-shadow: none;
-}
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: none;
+        }
 
         .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+            box-shadow: none;
         }
 
         .result-screen {
             text-align: center;
         }
 
-.mbti-result {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 20px;  /* 30px → 20px */
-    border-radius: 15px;
-    margin: 20px 0;  /* 30px → 20px */
-    font-size: 2.2em;  /* 3em → 2.2em */
-    font-weight: bold;
-    letter-spacing: 5px;
-    box-shadow: none;
-}
+        .mbti-result {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            font-size: 2.5em;
+            font-weight: bold;
+            letter-spacing: 5px;
+            box-shadow: none;
+        }
 
         .result-description {
             background: #f8f9ff;
@@ -174,17 +176,17 @@ body {
             text-align: left;
         }
 
- .result-description h3 {
-    color: #764ba2;
-    margin-bottom: 15px;
-    font-size: 1.3em;  /* 1.5em → 1.3em */
+        .result-description h3 {
+            color: #764ba2;
+            margin-bottom: 15px;
+            font-size: 1.3em;
         }
 
-.result-description p {
-    color: #666;
-    line-height: 1.8;
-    margin-bottom: 15px;
-    font-size: 0.95em;  /* 기본값에서 0.95em */
+        .result-description p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            font-size: 0.95em;
         }
 
         .characteristics {
@@ -195,11 +197,11 @@ body {
         }
 
         .characteristic-item {
-           background: white;
-    padding: 12px;  /* 15px → 12px */
-    border-radius: 8px;
-    border-left: 4px solid #667eea;
-    font-size: 0.9em;
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            font-size: 0.9em;
         }
 
         @keyframes fadeIn {
