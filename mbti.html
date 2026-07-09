@@ -497,41 +497,47 @@ body {
         }
 
         function showResult() {
-            const mbti = 
-                (scores.E > scores.I ? 'E' : 'I') +
-                (scores.S > scores.N ? 'S' : 'N') +
-                (scores.T > scores.F ? 'T' : 'F') +
-                (scores.J > scores.P ? 'J' : 'P');
-            
-            const result = mbtiDescriptions[mbti];
-            
-            document.getElementById('questionScreen').classList.remove('active');
-            document.getElementById('resultScreen').classList.add('active');
-            document.getElementById('progressFill').style.width = '100%';
-            
-            document.getElementById('mbtiResult').textContent = mbti;
-            
-            const descriptionHTML = `
-                <h3>${result.title}</h3>
-                <p>${result.description}</p>
-                <div class="characteristics">
-                    ${result.characteristics.map(char => 
-                        `<div class="characteristic-item">✨ ${char}</div>`
-                    ).join('')}
-                </div>
-            `;
-            
-            document.getElementById('resultDescription').innerHTML = descriptionHTML;
-        }
+              const mbti = 
+        (scores.E > scores.I ? 'E' : 'I') +
+        (scores.S > scores.N ? 'S' : 'N') +
+        (scores.T > scores.F ? 'T' : 'F') +
+        (scores.J > scores.P ? 'J' : 'P');
+    
+    const result = mbtiDescriptions[mbti];
+    
+    // 헤더 숨기기
+    document.querySelector('.header').style.display = 'none';
+    
+    document.getElementById('questionScreen').classList.remove('active');
+    document.getElementById('resultScreen').classList.add('active');
+    document.getElementById('progressFill').style.width = '100%';
+    
+    document.getElementById('mbtiResult').textContent = mbti;
+    
+    const descriptionHTML = `
+        <h3>${result.title}</h3>
+        <p>${result.description}</p>
+        <div class="characteristics">
+            ${result.characteristics.map(char => 
+                `<div class="characteristic-item">✨ ${char}</div>`
+            ).join('')}
+        </div>
+    `;
+    
+    document.getElementById('resultDescription').innerHTML = descriptionHTML;
+}
 
         function restartTest() {
-            currentQuestion = 0;
-            scores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
-            
-            document.getElementById('resultScreen').classList.remove('active');
-            document.getElementById('startScreen').classList.add('active');
-            document.getElementById('progressFill').style.width = '0%';
-        }
+          currentQuestion = 0;
+    scores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
+    
+    // 헤더 다시 표시
+    document.querySelector('.header').style.display = 'block';
+    
+    document.getElementById('resultScreen').classList.remove('active');
+    document.getElementById('startScreen').classList.add('active');
+    document.getElementById('progressFill').style.width = '0%';
+}
     </script>
 </body>
 </html>
